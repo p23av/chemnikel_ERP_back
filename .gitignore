@@ -1,0 +1,61 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environment
+venv/
+.env/
+.env.*  # если используешь dotenv
+
+# Django migrations
+**/migrations/
+!**/migrations/__init__.py
+
+# SQLite database
+*.sqlite3
+*.db
+
+# Logs
+*.log
+*.pot
+
+# Pytest cache
+.pytest_cache/
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+*.cover
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+
+# VSCode & PyCharm
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Static/media files (если генерируются во время работы)
+staticfiles/
+media/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# pipenv
+Pipfile.lock
+
+# Docker
+*.pid

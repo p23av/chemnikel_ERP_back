@@ -1,0 +1,23 @@
+[
+  {
+      "model": "customers.customer",
+      "pk": 1,
+      "fields": {
+          "name": "ООО ТехноПром",
+          "tax_id": "123456789012",
+          "email": "contact@technoprom.ru",
+          "phone": "+78002000600",
+          "is_active": true
+      }
+  },
+  {
+      "model": "customers.contactperson",
+      "pk": 1,
+      "fields": {
+          "customer": 1,
+          "name": "Алексей Петров",
+          "position": "Директор",
+          "phone": "+79161234567"
+      }
+  }
+]

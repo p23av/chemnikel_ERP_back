@@ -1,0 +1,6 @@
+admin
+	admin
+	!123qwe!
+
+manager
+!234qwer
