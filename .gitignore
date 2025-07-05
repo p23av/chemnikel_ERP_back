@@ -10,6 +10,8 @@ __pycache__/
 venv/
 .env/
 .env.*  # если используешь dotenv
+.env
+*.env
 
 # Django migrations
 **/migrations/

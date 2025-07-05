@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_#qwr2rr=@-dy2j#0pa7+xn&awli(stb1(0g_8uf8zuylzlf4='
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,17 +33,22 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Third-party
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
-    'customers',
     'rest_framework_simplejwt',
-    # 'api',
+    'rest_framework_simplejwt.token_blacklist',
+    # Local apps
+    'customers',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -53,8 +60,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'chemnikelCRM.urls'
@@ -84,11 +89,11 @@ WSGI_APPLICATION = 'chemnikelCRM.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'p23av7kyan',
-        'USER': 'p23av7kyan',       # Из панели SpaceWeb
-        'PASSWORD': '!Avp4778348',
-        'HOST': 'pg4.sweb.ru',    # Хост из SpaceWeb
-        'PORT': '5433',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT', default='5432'),
     }
 }
 
@@ -164,5 +169,23 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ]
 }
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("Bearer", "JWT"),  # Тип заголовка (например, "Authorization: JWT <token>")
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=9),  # Пример
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "BLACKLIST_AFTER_ROTATION": True,
+    "ROTATE_REFRESH_TOKENS": True,
+}
+
+AUTH_USER_MODEL = "users.User"  # Подключение кастомной модели
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+TIME_ZONE = 'Europe/Moscow'
+USE_TZ = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
